@@ -1,0 +1,11 @@
+.product {
+    &_image {
+        &>img {
+            border-radius: 0.5rem;
+        }
+    }
+
+    &_name {
+        font-weight: bold;
+    }
+}

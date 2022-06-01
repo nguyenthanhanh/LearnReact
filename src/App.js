@@ -1,7 +1,10 @@
 import logo from './logo.svg';
-import './App.css';
+// import './App.css';
 import React from 'react';
 import TodoFeature from './features/Todo';
+import FeatureProduct from './features/Product';
+import ColorBox from './features/ColorBox';
+import Count from './features/Count';
 
 function App() {
   // const name = 'Thành Anh';
@@ -15,6 +18,9 @@ function App() {
   return (
     <div className="App">
       <TodoFeature />
+      {/* <FeatureProduct />
+      <ColorBox />
+      <Count /> */}
     </div>
     // <div className="App">
     //   <header className="App-header">
