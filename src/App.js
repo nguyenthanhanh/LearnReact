@@ -5,6 +5,10 @@ import TodoFeature from './features/Todo';
 import FeatureProduct from './features/Product';
 import ColorBox from './features/ColorBox';
 import Count from './features/Count';
+import { Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import { Switch } from 'react-router-dom';
 
 function App() {
   // const name = 'Thành Anh';
@@ -17,10 +21,18 @@ function App() {
   // const color = ['red', 'green', 'white', 'Đen', ''];
   return (
     <div className="App">
-      <TodoFeature />
-      {/* <FeatureProduct />
-      <ColorBox />
-      <Count /> */}
+      header
+      <p><Link to="/todo">ToDo</Link></p>
+      <p><Link to="/colorbox">ColorBox</Link></p>
+      <p><NavLink to="/todo" >ToDos</NavLink></p>
+      <p><NavLink to="/colorbox" >ColorBoxs</NavLink></p>
+      <Switch>
+        <Route path="/todo" component={TodoFeature} exact />
+        <Route path="/colorbox" component={ColorBox} exact />
+      </Switch>
+      <Route path="/spec" component={TodoFeature} />
+      <Route path="/spec" component={ColorBox} />
+      footer
     </div>
     // <div className="App">
     //   <header className="App-header">

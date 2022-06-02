@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import TodoList from './components/TodoList';
+import useMagicColor from '../RandomColor';
+import useClock from '../Clock';
 
 TodoFeature.propTypes = {
 
 };
 
 function TodoFeature(props) {
+
     const toDo = [
         {
             id: 1,
@@ -48,9 +51,16 @@ function TodoFeature(props) {
     const handleClickShowCompleted = () => { setFilterToDoList('completed') };
     const handleClickShowNew = () => { setFilterToDoList('new') };
     const renderToDoList = toDoList.filter(toDo => filterToDoList === 'all' || filterToDoList === toDo.status);
+    const { color, count } = useMagicColor();
+    const clock = useClock();
+    const [reactCount, setReactCount] = useState(0);
     return (
         <div>
-            <h3>Todo List</h3>
+            <h3 style={{ backgroundColor: color }}>Todo List</h3>
+            <p>Số lần đổi màu: {count}</p>
+            <p className='better-clock_time'>{clock}</p>
+            <p>{reactCount}</p>
+            <button onClick={() => setReactCount(x => x + 1)}> Gia Tăng</button>
             <TodoList todoList={renderToDoList} onToDoClick={handleToDoClick} />
             <button onClick={handleClickShowAll}>Show All</button>
             <button onClick={handleClickShowCompleted}>Show Completed</button>
