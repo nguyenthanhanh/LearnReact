@@ -22,6 +22,11 @@ function TodoFeature(props) {
             id: 3,
             title: 'Mouse',
             status: 'new'
+        },
+        {
+            id: 4,
+            title: 'Duck',
+            status: 'new'
         }
     ];
     const [filterToDoList, setFilterToDoList] = useState('all');
