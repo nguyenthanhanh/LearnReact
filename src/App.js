@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 // import './App.css';
-import React from 'react';
+import React, { useEffect } from 'react';
 import TodoFeature from './features/Todo';
 import FeatureProduct from './features/Product';
 import ColorBox from './features/ColorBox';
@@ -9,8 +9,22 @@ import { Route } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 import { Switch } from 'react-router-dom';
+import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
+import { Router } from 'react-router-dom';
+import NotFound from './components/NotFound';
+import productApi from './api/productApi';
 
 function App() {
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const params = {
+        _limit: 10
+      }
+      const productList = await productApi.getAll(params);
+      console.log(productList);
+    }
+    fetchProducts();
+  }, []);
   // const name = 'Thành Anh';
   // const age = 18;
   // const isFemale = true;
@@ -27,8 +41,10 @@ function App() {
       <p><NavLink to="/todo" >ToDos</NavLink></p>
       <p><NavLink to="/colorbox" >ColorBoxs</NavLink></p>
       <Switch>
-        <Route path="/todo" component={TodoFeature} exact />
-        <Route path="/colorbox" component={ColorBox} exact />
+        <Redirect from="/home" to="/" exact></Redirect>
+        <Route path="/todo" component={TodoFeature} />
+        <Route path="/colorbox" component={ColorBox} />
+        <Route component={NotFound}></Route>
       </Switch>
       <Route path="/spec" component={TodoFeature} />
       <Route path="/spec" component={ColorBox} />

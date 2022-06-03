@@ -16,7 +16,6 @@ function useMagicColor() {
             setCount(x => x + 1);
         }, 5000);
         return () => {
-            console.log('vaor hủy');
             clearInterval(intervalColor);
         }
     }, [])
