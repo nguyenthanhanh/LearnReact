@@ -42,6 +42,7 @@ function App() {
       <p><NavLink to="/colorbox" >ColorBoxs</NavLink></p>
       <Switch>
         <Redirect from="/home" to="/" exact></Redirect>
+        <Route path= "/" component={Count} exact ></Route>
         <Route path="/todo" component={TodoFeature} />
         <Route path="/colorbox" component={ColorBox} />
         <Route component={NotFound}></Route>

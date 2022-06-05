@@ -6,7 +6,8 @@ import useClock from '../../../Clock';
 import { useHistory, useLocation, useRouteMatch } from 'react-router-dom/cjs/react-router-dom.min';
 import queryString from 'query-string';
 import ToDoForm from '../../components/ToDoForm';
-
+import { decrease, increase } from '../../../Count/counterSlice';
+import { useDispatch, useSelector } from 'react-redux';
 ListPage.propTypes = {
 
 };
@@ -49,15 +50,15 @@ function ListPage(props) {
     }, [location.search]);
     const [toDoList, setToDoList] = useState(toDo);
     const handleToDoClick = (toDo, index) => {
-        // clone current array to the new one
+        console.log({ toDo, index })
+        //clone current array to the new one
         const newToDoList = [...toDoList];
-
+        console.log(newToDoList[0] === toDoList[0])
         //toggle state
         newToDoList[index] = {
             ...newToDoList[index],
             status: newToDoList[index].status === 'new' ? 'completed' : 'new'
         };
-        console.log(toDo, index);
         setToDoList(newToDoList);
     };
 
@@ -89,20 +90,32 @@ function ListPage(props) {
         // useMemo(() => {
         toDoList.filter(toDo => filterToDoList === 'all' || filterToDoList === toDo.status);
     // }, [toDoList, filterToDoList])
-    const { color, count } = useMagicColor();
-    const clock = useClock();
-    const [reactCount, setReactCount] = useState(0);
+    // const { color, count } = useMagicColor();
+    // const clock = useClock();
+    // const [reactCount, setReactCount] = useState(0);
 
     const handleToDoFormSubmit = (values) => {
         console.log('Form submit:', values);
+        const itemToDo = {
+            id: toDoList.length + 1,
+            status: 'new',
+            title: values.title
+        };
+        const newToDoList = [...toDoList,itemToDo];
+        setToDoList(newToDoList);
     }
+    //redux toolkit
+    const dispatch = useDispatch();
+    const counter = useSelector(state=> state.counter);
+    const handleClickIncrease = ()=> dispatch(increase());
+    const handleClickDecrease = ()=> dispatch(decrease()); 
     return (
         <div>
-            <h3 style={{ backgroundColor: color }}>Todo List</h3>
-            <p>Số lần đổi màu: {count}</p>
-            <p className='better-clock_time'>{clock}</p>
-            <p>{reactCount}</p>
-            <button onClick={() => setReactCount(x => x + 1)}> Gia Tăng</button>
+            {/* <h3 style={{ backgroundColor: color }}>Todo List</h3> */}
+            {/* <p>Số lần đổi màu: {count}</p>
+            <p className='better-clock_time'>{clock}</p> */}
+            {/* <p>{reactCount}</p> */}
+            {/* <button onClick={() => setReactCount(x => x + 1)}> Gia Tăng</button> */}
             <h3>What to do of React Hook Form</h3>
             <ToDoForm onSubMit={handleToDoFormSubmit}></ToDoForm>
             <TodoList todoList={renderToDoList} onToDoClick={handleToDoClick} />
@@ -111,6 +124,12 @@ function ListPage(props) {
                 <button onClick={handleClickShowCompleted}>Show Completed</button>
                 <button onClick={handleClickShowNew}>Show New</button>
             </div>
+            <p>
+                Gia tăng Redux
+                {counter}
+            <button onClick={handleClickIncrease}>Increase Number redux</button>
+            <button onClick={handleClickDecrease}>Decrease Number redux</button>
+            </p>
         </div>
     );
 }
